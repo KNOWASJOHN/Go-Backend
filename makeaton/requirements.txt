@@ -1,0 +1,10 @@
+Flask==3.0.0
+Flask-CORS==4.0.0
+reportlab==4.4.4
+qrcode[pil]==7.4.2
+Pillow==10.1.0
+marshmallow==3.20.1
+python-dateutil==2.8.2
+google-genai
+python-dotenv==1.0.0
+gunicorn==21.2.0

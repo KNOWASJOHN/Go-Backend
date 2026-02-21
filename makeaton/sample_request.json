@@ -1,0 +1,14 @@
+{
+  "chats": [
+    "Hi, I'd like to order 2 large pizzas",
+    "Each pizza costs 500 rupees",
+    "I also need 3 cold drinks",
+    "The drinks are 50 rupees each",
+    "And please add 1 garlic bread for 150 rupees"
+  ],
+  "upi_id": "merchant@paytm",
+  "customer_name": "John Doe",
+  "customer_phone": "+91-9876543210",
+  "customer_email": "john@example.com",
+  "payee_name": "Pizza Palace"
+}
