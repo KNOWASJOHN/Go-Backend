@@ -1,0 +1,653 @@
+
+--- New Invoice Request 2026-02-22 06:13:12.057745 ---
+Customer: John
+Chats: [
+  "[06:12:11] Alvi (918589837817): i would like to order 2 mutton biriyani aswell as 2 chicken biriyani",
+  "[06:12:19] Alvi (918589837817): for drinks i would like to get 10 pepsi bottles",
+  "[06:12:26] Alvi (918589837817): it would be 182200 rps right",
+  "[06:13:12] John (919633768464): Your order has been placed!"
+]
+ERROR: No items extracted by Gemini
+
+--- New Invoice Request 2026-02-22 06:16:58.457385 ---
+Customer: John
+Chats: [
+  "[06:12:25] Tharun Krishna C U (919778585423): AIzaSyDiQi64x-OesN0lzlxFMRte2c5xMnqyrjA",
+  "[06:16:16] Tharun Krishna C U (919778585423): Hello",
+  "[06:16:22] Tharun Krishna C U (919778585423): Kuzhimanthi",
+  "[06:16:34] Tharun Krishna C U (919778585423): 2 quantity",
+  "[06:16:49] Tharun Krishna C U (919778585423): 250Rs for each",
+  "[06:16:58] John (919633768464): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 250.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 06:23:20.436465 ---
+Customer: John
+Chats: [
+  "[06:22:58] Alvi (918589837817): please sell me kuzhimandhi",
+  "[06:23:02] Alvi (918589837817): only 5 meals",
+  "[06:23:11] Alvi (918589837817): aswell a bottle of water",
+  "[06:23:14] Alvi (918589837817): 750rps",
+  "[06:23:20] John (919633768464): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 750.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 06:28:21.435313 ---
+Customer: John
+Chats: [
+  "[06:22:58] Alvi (918589837817): please sell me kuzhimandhi",
+  "[06:23:02] Alvi (918589837817): only 5 meals",
+  "[06:23:11] Alvi (918589837817): aswell a bottle of water",
+  "[06:23:14] Alvi (918589837817): 750rps",
+  "[06:23:20] John (919633768464): Your order has been placed!",
+  "[06:28:17] Alvi (918589837817): please sell me kuzhimandhi\n5 meals \n7 bottle of pepsi \n5 pizza large \n1508 rps",
+  "[06:28:21] John (919633768464): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 750.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 06:29:07.172447 ---
+Customer: John
+Chats: [
+  "[06:22:58] Alvi (918589837817): please sell me kuzhimandhi",
+  "[06:23:02] Alvi (918589837817): only 5 meals",
+  "[06:23:11] Alvi (918589837817): aswell a bottle of water",
+  "[06:23:14] Alvi (918589837817): 750rps",
+  "[06:23:20] John (919633768464): Your order has been placed!",
+  "[06:28:17] Alvi (918589837817): please sell me kuzhimandhi\n5 meals \n7 bottle of pepsi \n5 pizza large \n1508 rps",
+  "[06:28:21] John (919633768464): Your order has been placed!",
+  "[06:29:07] John (919633768464): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 750.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 06:31:31.230333 ---
+Customer: John
+Chats: [
+  "[06:22:58] Alvi (918589837817): please sell me kuzhimandhi",
+  "[06:23:02] Alvi (918589837817): only 5 meals",
+  "[06:23:11] Alvi (918589837817): aswell a bottle of water",
+  "[06:23:14] Alvi (918589837817): 750rps",
+  "[06:23:20] John (919633768464): Your order has been placed!",
+  "[06:28:17] Alvi (918589837817): please sell me kuzhimandhi\n5 meals \n7 bottle of pepsi \n5 pizza large \n1508 rps",
+  "[06:28:21] John (919633768464): Your order has been placed!",
+  "[06:29:07] John (919633768464): Your order has been placed!",
+  "[06:31:21] Alvi (918589837817): 51 pizza 52 burger",
+  "[06:31:26] Alvi (918589837817): 10,530 rupees",
+  "[06:31:31] John (919633768464): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 750.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 06:36:31.321061 ---
+Customer: John
+Chats: [
+  "[06:36:21] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[06:36:31] John (919633768464): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 530.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 07:14:35.152370 ---
+Customer: Alvi
+Chats: [
+  "[07:13:59] Alvi DS (918589837817): Hi",
+  "[07:14:02] Alvi DS (918589837817): Hello",
+  "[07:14:13] Alvi (918589837817): Hi",
+  "[07:14:14] Alvi (918589837817): Hello",
+  "[07:14:25] Alvi (918589837817): Your order has been placed!",
+  "[07:14:35] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 0.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 07:16:43.161712 ---
+Customer: Alvi
+Chats: [
+  "[07:13:59] Alvi DS (918589837817): Hi",
+  "[07:14:02] Alvi DS (918589837817): Hello",
+  "[07:14:13] Alvi (918589837817): Hi",
+  "[07:14:14] Alvi (918589837817): Hello",
+  "[07:14:25] Alvi (918589837817): Your order has been placed!",
+  "[07:14:35] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:16:43] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 0.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 07:19:07.942082 ---
+Customer: Alvi
+Chats: [
+  "[07:13:59] Alvi DS (918589837817): Hi",
+  "[07:14:02] Alvi DS (918589837817): Hello",
+  "[07:14:13] Alvi (918589837817): Hi",
+  "[07:14:14] Alvi (918589837817): Hello",
+  "[07:14:25] Alvi (918589837817): Your order has been placed!",
+  "[07:14:35] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:16:43] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:19:01] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:19:07] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 10530.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 07:21:41.424226 ---
+Customer: Alvi
+Chats: [
+  "[07:21:30] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:21:41] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 10530.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 07:29:22.522682 ---
+Customer: Alvi
+Chats: [
+  "[07:28:54] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:29:22] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "pizza",
+    "quantity": 51,
+    "price": 10530.0
+  },
+  {
+    "item": "burger",
+    "quantity": 52,
+    "price": 10530.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 07:42:02.961794 ---
+Customer: Alvi
+Chats: [
+  "[07:28:54] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:29:22] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:41:48] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:41:53] Alvi (918589837817): 500 pizzas extra aswell",
+  "[07:42:02] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "pizza",
+    "quantity": 51,
+    "price": 100.0
+  },
+  {
+    "item": "burger",
+    "quantity": 52,
+    "price": 100.0
+  },
+  {
+    "item": "pizza",
+    "quantity": 500,
+    "price": 100.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 07:49:04.806928 ---
+Customer: Alvi
+Chats: [
+  "[07:28:54] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:29:22] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:41:48] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:41:53] Alvi (918589837817): 500 pizzas extra aswell",
+  "[07:42:02] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:48:39] Alvi (918589837817): 520 bottle of water",
+  "[07:48:41] Alvi (918589837817): 120 litre of ice cream",
+  "[07:48:47] Alvi (918589837817): ice cream for 50 rupees",
+  "[07:49:00] Alvi (918589837817): bottle of water 5rps each",
+  "[07:49:04] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "pizza",
+    "quantity": 51,
+    "price": 0.0
+  },
+  {
+    "item": "burger",
+    "quantity": 52,
+    "price": 0.0
+  },
+  {
+    "item": "pizzas",
+    "quantity": 500,
+    "price": 0.0
+  },
+  {
+    "item": "bottle of water",
+    "quantity": 520,
+    "price": 5.0
+  },
+  {
+    "item": "litre of ice cream",
+    "quantity": 120,
+    "price": 50.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:04:25.352638 ---
+Customer: Alvi
+Chats: [
+  "[07:28:54] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:29:22] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:41:48] Alvi (918589837817): 51 pizza 52 burger 10,530 rupees",
+  "[07:41:53] Alvi (918589837817): 500 pizzas extra aswell",
+  "[07:42:02] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[07:48:39] Alvi (918589837817): 520 bottle of water",
+  "[07:48:41] Alvi (918589837817): 120 litre of ice cream",
+  "[07:48:47] Alvi (918589837817): ice cream for 50 rupees",
+  "[07:49:00] Alvi (918589837817): bottle of water 5rps each",
+  "[07:49:04] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:03:53] Alvi (918589837817): i need 5 pepsi",
+  "[08:04:11] Alvi (918589837817): muunu poratta",
+  "[08:04:20] Alvi (918589837817): 1 mandhi",
+  "[08:04:24] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Pizza",
+    "quantity": 51,
+    "price": 17.21
+  },
+  {
+    "item": "Burger",
+    "quantity": 52,
+    "price": 16.88
+  },
+  {
+    "item": "Rupees",
+    "quantity": 530,
+    "price": 1.66
+  },
+  {
+    "item": "Pizza",
+    "quantity": 51,
+    "price": 17.21
+  },
+  {
+    "item": "Burger",
+    "quantity": 52,
+    "price": 16.88
+  },
+  {
+    "item": "Rupees",
+    "quantity": 530,
+    "price": 1.66
+  },
+  {
+    "item": "Pizzas Extra Aswell",
+    "quantity": 500,
+    "price": 1.75
+  },
+  {
+    "item": "Bottle Of Water",
+    "quantity": 520,
+    "price": 1.69
+  },
+  {
+    "item": "Litre Of Ice Cream",
+    "quantity": 120,
+    "price": 7.31
+  },
+  {
+    "item": "Ice Cream For",
+    "quantity": 50,
+    "price": 17.55
+  },
+  {
+    "item": "Bottle Of Water",
+    "quantity": 5,
+    "price": 175.5
+  },
+  {
+    "item": "I Need",
+    "quantity": 5,
+    "price": 175.5
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:09:39.562242 ---
+Customer: Alvi
+Chats: [
+  "[08:09:30] Alvi (918589837817): [8:03 AM, 2/22/2026] Alvi: i need 5 pepsi\n[8:04 AM, 2/22/2026] Alvi: muunu poratta\n[8:04 AM, 2/22/2026] Alvi: 1 mandhi",
+  "[08:09:39] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Order Items",
+    "quantity": 1,
+    "price": 100.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:14:31.586654 ---
+Customer: sdfffsdsdf
+Chats: [
+  "Your order has been placed!2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees"
+]
+Items Extracted: [
+  {
+    "item": "large pizzas",
+    "quantity": 2,
+    "price": 500.0
+  },
+  {
+    "item": "cold drinks",
+    "quantity": 3,
+    "price": 50.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:21:14.454742 ---
+Customer: Alvi
+Chats: [
+  "[08:21:03] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:21:14] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "large pizzas",
+    "quantity": 2,
+    "price": 500.0
+  },
+  {
+    "item": "cold drinks",
+    "quantity": 3,
+    "price": 50.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:24:51.722437 ---
+Customer: Alvi
+Chats: [
+  "[08:21:03] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:21:14] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:24:47] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees +2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:24:51] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "large pizza",
+    "quantity": 4,
+    "price": 500.0
+  },
+  {
+    "item": "cold drink",
+    "quantity": 6,
+    "price": 50.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:38:20.448751 ---
+Customer: Alvi
+Chats: [
+  "[08:21:03] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:21:14] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:24:47] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees +2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:24:51] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:37:45] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:38:20] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "large pizza",
+    "quantity": 2,
+    "price": 500.0
+  },
+  {
+    "item": "cold drink",
+    "quantity": 3,
+    "price": 50.0
+  },
+  {
+    "item": "large pizza",
+    "quantity": 2,
+    "price": 500.0
+  },
+  {
+    "item": "cold drink",
+    "quantity": 3,
+    "price": 50.0
+  },
+  {
+    "item": "large pizza",
+    "quantity": 2,
+    "price": 500.0
+  },
+  {
+    "item": "cold drink",
+    "quantity": 3,
+    "price": 50.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:41:08.877228 ---
+Customer: Alvi
+Chats: [
+  "[08:21:03] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:21:14] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:24:47] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees +2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:24:51] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:37:45] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:38:20] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:41:02] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupee",
+  "[08:41:08] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Large Pizzas",
+    "quantity": 2,
+    "price": 500.0
+  },
+  {
+    "item": "Cold Drinks",
+    "quantity": 3,
+    "price": 50.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:44:24.617076 ---
+Customer: Alvi DS
+Chats: [
+  "[08:21:03] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:21:14] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:24:47] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees +2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:24:51] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:37:45] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:38:20] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:41:02] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupee",
+  "[08:41:08] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:44:11] Alvi (918589837817): 8:03 AM, 2/22/2026] Alvi: i need 5 pepsi\n[8:04 AM, 2/22/2026] Alvi: muunu poratta\n[8:04 AM, 2/22/2026] Alvi: 1 mandhi",
+  "[08:44:24] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Pepsi",
+    "quantity": 5,
+    "price": 1.0
+  },
+  {
+    "item": "Muunu Poratta",
+    "quantity": 1,
+    "price": 1.0
+  },
+  {
+    "item": "Mandhi",
+    "quantity": 1,
+    "price": 1.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 08:48:05.682502 ---
+Customer: Alvi
+Chats: [
+  "[08:21:03] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:21:14] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:24:47] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees +2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:24:51] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:37:45] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupees",
+  "[08:38:20] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:41:02] Alvi (918589837817): 2 large pizzas at 500 each \u00b7 3 cold drinks for 50 rupee",
+  "[08:41:08] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:44:11] Alvi (918589837817): 8:03 AM, 2/22/2026] Alvi: i need 5 pepsi\n[8:04 AM, 2/22/2026] Alvi: muunu poratta\n[8:04 AM, 2/22/2026] Alvi: 1 mandhi",
+  "[08:44:24] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[08:46:49] Alvi (918589837817): 8:03 AM, 2/22/2026] Alvi: i need 5 pepsi\n[8:04 AM, 2/22/2026] Alvi: muunu poratta\n[8:04 AM, 2/22/2026] Alvi: 1 mandhi",
+  "[08:47:53] Tharun Krishna C U (919778585423): Pepsi 20 Rupees\nPorotta 12 Rs\nMandi 180Rs",
+  "[08:48:01] Alvi (918589837817): ok",
+  "[08:48:05] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Pepsi",
+    "quantity": 5,
+    "price": 20.0
+  },
+  {
+    "item": "Muunu Poratta",
+    "quantity": 1,
+    "price": 12.0
+  },
+  {
+    "item": "Mandhi",
+    "quantity": 1,
+    "price": 180.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 09:20:06.133241 ---
+Customer: Minhaj DS
+Chats: [
+  "[09:15:34] Minhaj Noushad (919946779672): Hello",
+  "[09:15:40] Minhaj Noushad (919946779672): I need 3 pepsi",
+  "[09:15:48] Minhaj Noushad (919946779672): 5 lays",
+  "[09:16:05] Minhaj Noushad (919946779672): 4 apple juice",
+  "[09:20:05] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Pepsi",
+    "quantity": 3,
+    "price": 0.0
+  },
+  {
+    "item": "Lays",
+    "quantity": 5,
+    "price": 0.0
+  },
+  {
+    "item": "Apple Juice",
+    "quantity": 4,
+    "price": 0.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 09:23:38.726309 ---
+Customer: Minhaj DS
+Chats: [
+  "[09:15:34] Minhaj Noushad (919946779672): Hello",
+  "[09:15:40] Minhaj Noushad (919946779672): I need 3 pepsi",
+  "[09:15:48] Minhaj Noushad (919946779672): 5 lays",
+  "[09:16:05] Minhaj Noushad (919946779672): 4 apple juice",
+  "[09:20:05] Tharun Krishna C U (919778585423): Your order has been placed!",
+  "[09:21:37] Minhaj Noushad (919946779672): Hiii",
+  "[09:22:14] Tharun Krishna C U (919778585423): hello",
+  "[09:22:22] Minhaj Noushad (919946779672): I need 3 pepsi",
+  "[09:22:25] Minhaj Noushad (919946779672): 2 pizzas",
+  "[09:22:32] Minhaj Noushad (919946779672): And 5 burgers",
+  "[09:23:04] Tharun Krishna C U (919778585423): pepsi each 20Rs\npizzza each 100Rs\nburgers each 50Rs",
+  "[09:23:11] Minhaj Noushad (919946779672): Okay",
+  "[09:23:38] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Pepsi",
+    "quantity": 3,
+    "price": 20.0
+  },
+  {
+    "item": "Pizza",
+    "quantity": 2,
+    "price": 100.0
+  },
+  {
+    "item": "Burger",
+    "quantity": 5,
+    "price": 50.0
+  }
+]
+
+--- New Invoice Request 2026-02-22 09:50:01.557081 ---
+Customer: Alvi DS
+Chats: [
+  "[09:48:06] Alvi (918589837817): I would like order 5 pizza \nWith 2 bottles of pepsi",
+  "[09:49:45] Tharun Krishna C U (919778585423): pepsi each 20Rs\npizza each 100Rs\ntotal will be 540Rs",
+  "[09:49:48] Alvi (918589837817): Okay",
+  "[09:50:00] Tharun Krishna C U (919778585423): Your order has been placed!"
+]
+Items Extracted: [
+  {
+    "item": "Pizza",
+    "quantity": 5,
+    "price": 100.0
+  },
+  {
+    "item": "Pepsi",
+    "quantity": 2,
+    "price": 20.0
+  }
+]

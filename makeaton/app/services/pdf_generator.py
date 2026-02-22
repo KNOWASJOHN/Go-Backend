@@ -1,8 +1,3 @@
-"""
-PDF Generator Service
-Generates professional PDF invoices using ReportLab.
-"""
-
 from typing import Dict, List
 from datetime import datetime
 from io import BytesIO
@@ -13,7 +8,7 @@ from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
 from reportlab.lib.enums import TA_CENTER, TA_RIGHT, TA_LEFT
 from config import Config
-
+import base64
 
 def generate_pdf(
     invoice_data: Dict,
@@ -21,232 +16,214 @@ def generate_pdf(
     totals: Dict,
     qr_code_base64: str
 ) -> bytes:
-    """
-    Generate PDF invoice from data using ReportLab.
-    
-    Args:
-        invoice_data: Invoice metadata
-        items: List of items
-        totals: Calculated totals
-        qr_code_base64: Base64 QR code
-        
-    Returns:
-        PDF as bytes
-    """
+    """Generates a premium PDF invoice with advanced styling."""
     
     buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=A4,
-                           rightMargin=50, leftMargin=50,
-                           topMargin=50, bottomMargin=50)
-    
-    # Container for PDF elements
+    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=40, bottomMargin=40)
     elements = []
     
-    # Styles
+    # --- STYLES ---
     styles = getSampleStyleSheet()
-    title_style = ParagraphStyle(
-        'CustomTitle',
+    
+    # Modern Brand Color (Elegant Deep Blue/Slate)
+    brand_color = colors.HexColor('#1e293b') # Slate 800
+    accent_color = colors.HexColor('#3b82f6') # Blue 500
+    text_muted = colors.HexColor('#64748b') # Slate 400
+    
+    header_style = ParagraphStyle(
+        'HeaderStyle',
         parent=styles['Heading1'],
-        fontSize=24,
-        textColor=colors.HexColor('#2c3e50'),
-        spaceAfter=30,
-        alignment=TA_CENTER
+        fontSize=28,
+        textColor=brand_color,
+        fontName='Helvetica-Bold',
+        spaceAfter=5
     )
     
-    heading_style = ParagraphStyle(
-        'CustomHeading',
-        parent=styles['Heading2'],
-        fontSize=14,
-        textColor=colors.HexColor('#2c3e50'),
+    subheader_style = ParagraphStyle(
+        'SubHeaderStyle',
+        parent=styles['Normal'],
+        fontSize=10,
+        textColor=text_muted,
+        leading=14
+    )
+    
+    invoice_title_style = ParagraphStyle(
+        'InvoiceTitle',
+        parent=styles['Heading1'],
+        fontSize=36,
+        textColor=brand_color,
+        alignment=TA_RIGHT,
+        fontName='Helvetica-Bold',
+        leading=42,
         spaceAfter=10
     )
     
-    normal_style = styles['Normal']
-    
-    # Company Header
-    company_name = Paragraph(f"<b>{invoice_data['business_name']}</b>", 
-                            ParagraphStyle('CompanyName', parent=styles['Heading1'],
-                                         fontSize=20, textColor=colors.HexColor('#2c3e50'),
-                                         spaceAfter=5))
-    elements.append(company_name)
-    
-    company_details = Paragraph(
-        f"{invoice_data['business_address']}<br/>"
-        f"Phone: {invoice_data['business_phone']} | Email: {invoice_data['business_email']}<br/>"
-        f"GST: {invoice_data['business_gst']}",
-        normal_style
+    right_small_style = ParagraphStyle(
+        'RightSmall', 
+        parent=styles['Normal'], 
+        alignment=TA_RIGHT, 
+        fontSize=11,
+        leading=14
     )
-    elements.append(company_details)
-    elements.append(Spacer(1, 20))
     
-    # Invoice Title
-    invoice_title = Paragraph("<b>INVOICE</b>", title_style)
-    elements.append(invoice_title)
-    elements.append(Spacer(1, 20))
+    section_title_style = ParagraphStyle(
+        'SectionTitle',
+        parent=styles['Heading2'],
+        fontSize=12,
+        textColor=accent_color,
+        fontName='Helvetica-Bold',
+        spaceAfter=12,
+        textTransform='uppercase'
+    )
     
-    # Invoice Info Table (Bill To and Invoice Details side by side)
-    info_data = [
+    # --- TOP SECTION (Logo & Invoice Info) ---
+    business_name = invoice_data['business_name']
+    
+    top_data = [
         [
-            Paragraph("<b>Bill To:</b>", heading_style),
-            Paragraph("<b>Invoice Details:</b>", heading_style)
-        ],
+            [
+                Paragraph(business_name, header_style),
+                Paragraph(invoice_data['business_address'], subheader_style),
+                Paragraph(f"Phone: {invoice_data['business_phone']}", subheader_style),
+                Paragraph(f"GST: {invoice_data['business_gst']}", subheader_style),
+            ],
+            [
+                Paragraph("INVOICE", invoice_title_style),
+                Paragraph(f"<b>Number:</b> {invoice_data['invoice_number']}", right_small_style),
+                Paragraph(f"<b>Date:</b> {invoice_data['date']}", right_small_style),
+            ]
+        ]
+    ]
+    
+    top_table = Table(top_data, colWidths=[3.5*inch, 3.5*inch])
+    top_table.setStyle(TableStyle([
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 20),
+    ]))
+    elements.append(top_table)
+    elements.append(Spacer(1, 20))
+    
+    # --- BILL TO SECTION ---
+    elements.append(Paragraph("Bill To", section_title_style))
+    bill_to_data = [
         [
             Paragraph(
                 f"<b>{invoice_data['customer_name']}</b><br/>"
                 f"Contact: {invoice_data.get('customer_phone', 'N/A')}<br/>"
                 f"Email: {invoice_data.get('customer_email', 'N/A')}",
-                normal_style
-            ),
-            Paragraph(
-                f"<b>Invoice Number:</b> {invoice_data['invoice_number']}<br/>"
-                f"<b>Date:</b> {invoice_data['date']}",
-                normal_style
+                styles['Normal']
             )
         ]
     ]
-    
-    info_table = Table(info_data, colWidths=[3*inch, 3*inch])
-    info_table.setStyle(TableStyle([
-        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f8f9fa')),
-        ('PADDING', (0, 0), (-1, -1), 10),
+    bill_to_table = Table(bill_to_data, colWidths=[7*inch])
+    bill_to_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#f8fafc')),
+        ('PADDING', (0, 0), (-1, -1), 15),
+        ('ROUNDEDCORNERS', [10, 10, 10, 10]),
     ]))
-    elements.append(info_table)
+    elements.append(bill_to_table)
     elements.append(Spacer(1, 30))
     
-    # Items Table
-    table_data = [
-        ['#', 'Description', 'Qty', 'Rate', 'Amount']
-    ]
-    
+    # --- ITEMS TABLE ---
+    table_data = [['#', 'Description', 'Quantity', 'Unit Price', 'Total']]
     for idx, item in enumerate(items, 1):
-        amount = item['quantity'] * item['price']
+        line_total = item['quantity'] * item['price']
         table_data.append([
             str(idx),
             item['item'],
             str(item['quantity']),
-            f"Rs.{item['price']:.2f}",
-            f"Rs.{amount:.2f}"
+            f"{Config.CURRENCY_SYMBOL}{item['price']:.2f}",
+            f"{Config.CURRENCY_SYMBOL}{line_total:.2f}"
         ])
     
-    items_table = Table(table_data, colWidths=[0.5*inch, 2.5*inch, 0.8*inch, 1.2*inch, 1.2*inch])
+    # Adjust column widths
+    items_table = Table(table_data, colWidths=[0.5*inch, 3.5*inch, 1*inch, 1*inch, 1*inch])
     items_table.setStyle(TableStyle([
-        # Header row styling
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2c3e50')),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('BACKGROUND', (0, 0), (-1, 0), brand_color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('FONTSIZE', (0, 0), (-1, 0), 10),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
         ('TOPPADDING', (0, 0), (-1, 0), 12),
-        
-        # Data rows styling
-        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
-        ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
-        ('ALIGN', (0, 1), (0, -1), 'CENTER'),  # # column
-        ('ALIGN', (2, 1), (2, -1), 'CENTER'),  # Qty column
-        ('ALIGN', (3, 1), (-1, -1), 'RIGHT'),   # Rate and Amount columns
+        ('ALIGN', (0, 1), (0, -1), 'CENTER'),
+        ('ALIGN', (2, 1), (2, -1), 'CENTER'),
+        ('ALIGN', (3, 1), (-1, -1), 'RIGHT'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
         ('FONTSIZE', (0, 1), (-1, -1), 10),
-        ('PADDING', (0, 1), (-1, -1), 8),
-        
-        # Grid
-        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#2c3e50')),
-        ('LINEBELOW', (0, 0), (-1, 0), 2, colors.HexColor('#2c3e50')),
-        
-        # Alternating row colors
-        *[('BACKGROUND', (0, i), (-1, i), colors.HexColor('#f8f9fa')) 
-          for i in range(2, len(table_data), 2)]
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f1f5f9')]),
+        ('GRID', (0, 0), (-1, 0), 0.5, colors.white),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 10),
+        ('TOPPADDING', (0, 1), (-1, -1), 10),
     ]))
     elements.append(items_table)
-    elements.append(Spacer(1, 30))
     
-    # Totals Table (aligned to right)
-    totals_data = [
-        ['Subtotal:', f"Rs.{totals['subtotal']:.2f}"],
-        [f"GST ({totals['gst_rate']:.0f}%):", f"Rs.{totals['gst']:.2f}"],
-        ['TOTAL:', f"Rs.{totals['total']:.2f}"],
+    # --- SUMMARY SECTION ---
+    summary_data = [
+        ['', 'Subtotal:', f"{Config.CURRENCY_SYMBOL}{totals['subtotal']:.2f}"],
+        ['', f"GST ({totals['gst_rate']}%):", f"{Config.CURRENCY_SYMBOL}{totals['gst']:.2f}"],
+        ['', 'GRAND TOTAL:', f"{Config.CURRENCY_SYMBOL}{totals['total']:.2f}"]
     ]
-    
-    totals_table = Table(totals_data, colWidths=[2*inch, 1.5*inch])
-    totals_table.setStyle(TableStyle([
-        ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
+    summary_table = Table(summary_data, colWidths=[4*inch, 1.5*inch, 1.5*inch])
+    summary_table.setStyle(TableStyle([
         ('ALIGN', (1, 0), (1, -1), 'RIGHT'),
-        ('FONTNAME', (0, 0), (-1, 1), 'Helvetica'),
-        ('FONTNAME', (0, 2), (-1, 2), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 11),
-        ('PADDING', (0, 0), (-1, -1), 6),
-        ('LINEABOVE', (0, 0), (-1, 0), 1, colors.HexColor('#2c3e50')),
-        ('LINEABOVE', (0, 2), (-1, 2), 2, colors.HexColor('#2c3e50')),
-        ('BACKGROUND', (0, 2), (-1, 2), colors.HexColor('#2c3e50')),
-        ('TEXTCOLOR', (0, 2), (-1, 2), colors.whitesmoke),
-        ('PADDING', (0, 2), (-1, 2), 10),
+        ('ALIGN', (2, 0), (2, -1), 'RIGHT'),
+        ('FONTNAME', (1, 0), (2, 1), 'Helvetica'),
+        ('FONTNAME', (1, 2), (2, 2), 'Helvetica-Bold'),
+        ('FONTSIZE', (1, 0), (2, 1), 10),
+        ('FONTSIZE', (1, 2), (2, 2), 14),
+        ('TEXTCOLOR', (1, 2), (2, 2), accent_color),
+        ('TOPPADDING', (1, 0), (-1, -1), 5),
     ]))
+    elements.append(summary_table)
+    elements.append(Spacer(1, 40))
     
-    # Create a table to align totals to the right
-    right_aligned = Table([[totals_table]], colWidths=[6.5*inch])
-    right_aligned.setStyle(TableStyle([
-        ('ALIGN', (0, 0), (-1, -1), 'RIGHT'),
-    ]))
-    elements.append(right_aligned)
-    elements.append(Spacer(1, 30))
+    # --- PAYMENT & QR SECTION ---
+    elements.append(Paragraph("Payment Information", section_title_style))
     
-    # Payment Section
-    payment_heading = Paragraph("<b>Payment Information</b>", heading_style)
-    elements.append(payment_heading)
-    
-    payment_text = Paragraph("Scan the QR code below to pay via UPI:", normal_style)
-    elements.append(payment_text)
-    elements.append(Spacer(1, 10))
-    
-    # QR Code Image
-    import base64
+    # QR code processing
     qr_image_data = qr_code_base64.split(',')[1] if ',' in qr_code_base64 else qr_code_base64
     qr_image_bytes = BytesIO(base64.b64decode(qr_image_data))
-    qr_img = Image(qr_image_bytes, width=2*inch, height=2*inch)
+    qr_img = Image(qr_image_bytes, width=1.4*inch, height=1.4*inch)
     
-    # Center the QR code
-    qr_table = Table([[qr_img]], colWidths=[6.5*inch])
-    qr_table.setStyle(TableStyle([
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+    # Side by side Bank Details and QR
+    payment_box_data = [
+        [
+            [
+                Paragraph(f"<b>Pay To:</b> {invoice_data.get('payee_name', business_name)}", styles['Normal']),
+                Paragraph(f"<b>UPI ID:</b> {invoice_data['upi_id']}", styles['Normal']),
+                Paragraph(f"<b>Bank:</b> {invoice_data.get('bank_name', 'N/A')}", styles['Normal']),
+                Paragraph(f"<b>A/C No:</b> {invoice_data.get('bank_account_no', 'N/A')}", styles['Normal']),
+                Paragraph(f"<b>IFSC:</b> {invoice_data.get('bank_ifsc', 'N/A')}", styles['Normal']),
+            ],
+            [
+                qr_img,
+                Paragraph("Scan to Pay", ParagraphStyle('CenterLabel', parent=styles['Normal'], alignment=TA_CENTER, fontSize=8, textColor=text_muted))
+            ]
+        ]
+    ]
+    
+    payment_box = Table(payment_box_data, colWidths=[4.5*inch, 2.5*inch])
+    payment_box.setStyle(TableStyle([
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('ALIGN', (1, 0), (1, 0), 'CENTER'),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#eff6ff')),
+        ('ROUNDEDCORNERS', [10, 10, 10, 10]),
+        ('PADDING', (0, 0), (-1, -1), 15),
     ]))
-    elements.append(qr_table)
-    elements.append(Spacer(1, 10))
+    elements.append(payment_box)
     
-    # UPI ID
-    upi_text = Paragraph(
-        f"<b>Payment Method:</b> UPI<br/>"
-        f"<b>Payee Name:</b> {invoice_data.get('payee_name', invoice_data['business_name'])}<br/>"
-        f"<b>UPI ID:</b> {invoice_data['upi_id']}<br/>"
-        f"<b>Amount:</b> Rs.{totals['total']:.2f}",
-        ParagraphStyle('UPI', parent=normal_style, alignment=TA_CENTER)
+    # --- FOOTER ---
+    elements.append(Spacer(1, 60))
+    footer_text = (
+        "Thank you for choosing us! We appreciate your business.<br/>"
+        "This is a digitally generated invoice. No signature required."
     )
-    elements.append(upi_text)
-    elements.append(Spacer(1, 30))
+    elements.append(Paragraph(footer_text, ParagraphStyle('Footer', parent=styles['Normal'], alignment=TA_CENTER, textColor=text_muted, fontSize=9)))
     
-    # Thank You
-    thank_you = Paragraph(
-        "<b>Thank You for Your Business!</b>",
-        ParagraphStyle('ThankYou', parent=styles['Heading2'],
-                      fontSize=18, textColor=colors.HexColor('#2c3e50'),
-                      alignment=TA_CENTER, spaceAfter=20)
-    )
-    elements.append(thank_you)
-    
-    # Footer
-    footer = Paragraph(
-        "This is a computer-generated invoice and does not require a signature.<br/>"
-        f"For any queries, please contact us at {invoice_data['business_email']}",
-        ParagraphStyle('Footer', parent=normal_style,
-                      fontSize=9, textColor=colors.grey, alignment=TA_CENTER)
-    )
-    elements.append(footer)
-    
-    # Build PDF
+    # Build
     doc.build(elements)
-    
-    # Get PDF bytes
     pdf_bytes = buffer.getvalue()
     buffer.close()
-    
     return pdf_bytes

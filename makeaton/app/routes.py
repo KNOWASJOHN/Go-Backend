@@ -15,6 +15,7 @@ from app.utils.invoice_utils import get_next_invoice_number, format_date
 from config import Config
 import json
 import os
+import logging
 
 # Create blueprint
 api_bp = Blueprint('api', __name__, url_prefix='/api')
@@ -38,8 +39,12 @@ def load_profile():
         "business_phone": Config.BUSINESS_PHONE,
         "business_email": Config.BUSINESS_EMAIL,
         "business_gst": Config.BUSINESS_GST,
+        "default_payment_method": Config.DEFAULT_PAYMENT_METHOD,
         "default_upi_id": Config.DEFAULT_UPI_ID,
-        "payee_name": Config.BUSINESS_NAME
+        "payee_name": Config.BUSINESS_NAME,
+        "bank_name": Config.BANK_NAME,
+        "bank_account_no": Config.BANK_ACCOUNT_NO,
+        "bank_ifsc": Config.BANK_IFSC
     }
 
 def save_profile(data):
@@ -88,6 +93,10 @@ def receive_message():
             sender = data.get('sender', 'Unknown')
             message = data.get('message', '')
             history = data.get('history', [])
+            
+            logging.info(f"[Incoming Message] From: {sender}, Message: {message}")
+            if history:
+                logging.debug(f"Chat History Context ({len(history)} messages): {history}")
             
             print(f"\n[Incoming Message] From: {sender}")
             print(f"Message: {message}")
@@ -144,6 +153,11 @@ def generate_invoice():
         # Extract chat messages
         chat_messages = data['chats']
         
+        with open('debug_log.txt', 'a') as f:
+            f.write(f"\n--- New Invoice Request {datetime.now()} ---\n")
+            f.write(f"Customer: {data.get('customer_name')}\n")
+            f.write(f"Chats: {json.dumps(chat_messages, indent=2)}\n")
+        
         # Parse chats using AI
         try:
             items = parse_chats(chat_messages)
@@ -155,10 +169,15 @@ def generate_invoice():
         
         # Check if items were extracted
         if not items:
+            with open('debug_log.txt', 'a') as f:
+                f.write("ERROR: No items extracted by Gemini\n")
             return jsonify({
                 'error': 'No items found in chat messages',
                 'details': 'Please ensure your chat messages contain item names and prices'
             }), 400
+        
+        with open('debug_log.txt', 'a') as f:
+            f.write(f"Items Extracted: {json.dumps(items, indent=2)}\n")
         
         # Calculate totals
         totals = calculate_totals(items)
@@ -167,6 +186,7 @@ def generate_invoice():
         invoice_number = get_next_invoice_number()
         
         # Prepare invoice data (combining profile and request)
+        payee_name = data.get('payee_name') or profile.get('payee_name') or profile.get('business_name', Config.BUSINESS_NAME)
         invoice_data = {
             'invoice_number': invoice_number,
             'date': format_date(),
@@ -179,11 +199,14 @@ def generate_invoice():
             'business_phone': profile.get('business_phone', Config.BUSINESS_PHONE),
             'business_email': profile.get('business_email', Config.BUSINESS_EMAIL),
             'business_gst': profile.get('business_gst', Config.BUSINESS_GST),
-            'payee_name': payee_name
+            'payee_name': payee_name,
+            'payment_method': profile.get('default_payment_method', Config.DEFAULT_PAYMENT_METHOD),
+            'bank_name': profile.get('bank_name', Config.BANK_NAME),
+            'bank_account_no': profile.get('bank_account_no', Config.BANK_ACCOUNT_NO),
+            'bank_ifsc': profile.get('bank_ifsc', Config.BANK_IFSC)
         }
         
         # Generate UPI QR code
-        payee_name = data.get('payee_name') or profile.get('payee_name') or invoice_data['business_name']
         qr_code_base64 = generate_upi_qr(
             upi_id=data['upi_id'],
             amount=totals['total'],
@@ -225,14 +248,18 @@ def generate_invoice():
             "order": {
                 "id": f"ORD-{invoice_number}",
                 "customer": data['customer_name'],
-                "item": item_names[0] if item_names else "Multiple Items",
+                "item": ", ".join(item_names) if len(item_names) <= 2 else f"{item_names[0]} + {len(item_names)-1} more",
                 "status": "completed",
                 "time": "Just now",
                 "amount": totals['total'],
                 "phone": data.get('customer_phone'),
-                "quantity": len(items)
+                "quantity": sum(i.get('quantity', 1) for i in items),
+                "raw_items": items
             }
         })
+
+        pdf_buffer = io.BytesIO(pdf_bytes)
+        pdf_buffer.seek(0)
 
         return send_file(
             pdf_buffer,
@@ -368,7 +395,11 @@ def generate_invoice_direct():
             'business_phone': profile.get('business_phone', Config.BUSINESS_PHONE),
             'business_email': profile.get('business_email', Config.BUSINESS_EMAIL),
             'business_gst': profile.get('business_gst', Config.BUSINESS_GST),
-            'payee_name': data.get('payee_name') or profile.get('payee_name') or profile.get('business_name')
+            'payee_name': data.get('payee_name') or profile.get('payee_name') or profile.get('business_name'),
+            'payment_method': profile.get('default_payment_method', Config.DEFAULT_PAYMENT_METHOD),
+            'bank_name': profile.get('bank_name', Config.BANK_NAME),
+            'bank_account_no': profile.get('bank_account_no', Config.BANK_ACCOUNT_NO),
+            'bank_ifsc': profile.get('bank_ifsc', Config.BANK_IFSC)
         }
 
         # Generate UPI QR code
@@ -407,12 +438,13 @@ def generate_invoice_direct():
             "order": {
                 "id": f"ORD-{invoice_number}",
                 "customer": customer_name,
-                "item": item_names[0] if item_names else "Multiple Items",
+                "item": ", ".join(item_names) if len(item_names) <= 2 else f"{item_names[0]} + {len(item_names)-1} more",
                 "status": "completed",
                 "time": "Just now",
                 "amount": totals['total'],
                 "phone": data.get('customer_phone'),
-                "quantity": len(items)
+                "quantity": sum(i.get('quantity', 1) for i in items),
+                "raw_items": items
             }
         })
 
